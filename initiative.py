@@ -3,17 +3,19 @@ from entity import *
 
 initiativeOrder = []
 
-def getInitative(name):
-    """ask user for the initiative of the Entity
+
+def user_int_input(name, request_phrase):
+    """ask user for the integer
 
 
     Keyword arguments:
-    name -- name of player
+    name -- name of entity
+    request_phrase -- prompt to ask user
     """
-    initiative = input(name + "'s initiative: ")
+    initiative = input(">> " + name + "'s " + request_phrase + ": ")
     while not initiative.isdigit():
-        print("please input an integer")
-        initiative = input(name + "'s initiative: ")
+        print(">> please input an integer")
+        initiative = input(">> " + name + "'s " + request_phrase + ": ")
 
     return int(initiative)
 
@@ -27,12 +29,15 @@ def insertPlayers():
 
     for pcs in players_str:
         pcs = pcs.split(",")
-        initiativeOrder.append(Player(pcs[0], pcs[1], getInitative(pcs[0])))
+        initiativeOrder.append(Player(pcs[0], pcs[1], user_int_input(pcs[0], "initiative")))
+        # initiativeOrder.append(Player(pcs[0], pcs[1], pcs[2]))
 
 
 def insertEnemies():
-    pass
-    # initiative = input(name + "'s initiative: ")
+    name = input(">> Enemy's name: ")
+    initative = user_int_input(name, "initiative")
+    hitpoints = user_int_input(name, "hit points")
+    Enemy(name, hitpoints, initative)
     # while True:
 
 
@@ -49,13 +54,15 @@ def command():
     currEntity = 0
 
     while True:
-        cmd = input(">>")
+        cmd = input(">> ")
         if cmd == 'q':
             return
         elif cmd == 'n':
             currEntity += 1
+            if currEntity >= len(initiativeOrder):
+                currEntity = 0
             print(initiativeOrder[currEntity])
-        elif cmd[0] == 'a':
+        elif cmd != "" and cmd[0] == 'a':
             # call attack on an enem
             pass
         else:
@@ -72,11 +79,13 @@ def main():
     insertEnemies()
 
     # stage 3: execute initative order
-    initiativeOrder.sort()
+    initiativeOrder.sort(reverse=True)
+    print(initiativeOrder)
     command()
 
 
 
 if __name__ == "__main__":
+    # run with python 3!!
     main()
 

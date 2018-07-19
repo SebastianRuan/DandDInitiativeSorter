@@ -1,1 +1,1 @@
-Hush,0 Talgga,0 Garvin,0 Gandarf,0
+Hush,0,5 Talgga,0,2 Garvin,0,1 Gandarf,0,4

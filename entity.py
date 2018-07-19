@@ -1,7 +1,4 @@
-import functools
 
-
-# @functools.total_ordering
 class Entity:
     def __init__(self, name, hp, initiative):
         self.name = name
@@ -18,7 +15,8 @@ class Entity:
         return "Entity('{}', '{}', {},)".format(self.name, self.hp, self.initiative)
 
     def __str__(self):
-        return "{} - {}".format(self.name, self.hp)
+        return "{} - HP:{}".format(self.name, self.hp)
+
 
 class Player(Entity):
     def __init__(self, name, hp, initiative):
@@ -28,6 +26,10 @@ class Player(Entity):
     def increment_dt(self):
         self.death_throws += 1
 
+
 class Enemy(Entity):
+    def __init__(self, name, hp, initiative):
+        super().__init__(name, hp, initiative)
+
     def take_damage(self, damage):
         self.hp -= damage
