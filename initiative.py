@@ -21,6 +21,10 @@ def user_int_input(name, request_phrase):
 
 
 def insertPlayers():
+    """
+    walks through the playerCharacter text file generating and
+    adding player characters to the initiative list as it goes
+    """
     global initiativeOrder
 
     f = open('playerCharacters.txt', 'r')
@@ -34,11 +38,16 @@ def insertPlayers():
 
 
 def insertEnemies():
-    name = input(">> Enemy's name: ")
-    initative = user_int_input(name, "initiative")
-    hitpoints = user_int_input(name, "hit points")
-    Enemy(name, hitpoints, initative)
-    # while True:
+    """generates and adds enemies to the initiative list"""
+    while True:
+        cmd = input(">> add an Enemy? y/n: ")
+        if cmd == "y":
+            name = input(">> Enemy's name: ")
+            initative = user_int_input(name, "initiative")
+            hitpoints = user_int_input(name, "hit points")
+            initiativeOrder.append(Enemy(name, hitpoints, initative))
+        elif cmd == "n":
+            break
 
 
 def command():
